@@ -44,7 +44,7 @@ export {
   SpinnerTypes,
   TerminalSpinner,
 } from "https://deno.land/x/spinners/mod.ts";
-
+export { gte } from "https://deno.land/std@0.178.0/semver/mod.ts";
 export enum ctcolor {
   GREEN = 0xff32D3BC,
   BLUE = 0xff3FA0EA,

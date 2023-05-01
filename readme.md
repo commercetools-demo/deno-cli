@@ -38,21 +38,21 @@ _**commands**_
   - `import` Imports a selection of products into the project. For now a rubber
     duck with 7 variants
   - `clean` Deletes all products from the project
-  - `publish` Publish a modified on unpublished product
+  - `publish` Publish a modified or unpublished product
 - `customer` Work with the customer entity
   - `list` list all customers in the project
   - `import <region> <count>` import a number of random customers into the
     project.
 - `configure` configure your project with the right settings
-  - `init <region>` Initialise the configuration with countries, languages,
+  - `init <region>` Initialize the configuration with countries, languages,
     zones, channels, tax-rates, shipping methods, channels and stores. Allowed
     regions are: EMEA, APAC or US
   - `plan` this is just an alias for the terraform plan command
-  - `apply` this is just an alias for the terraform apply command, be carefull,
+  - `apply` this is just an alias for the terraform apply command, be careful,
     this will overwrite all in your project
   - `clean` this will remove all cached terraform information, so gives you a
-    clean slate to start over again. Be carefull, you will loose state with
-    terraform aswell!
+    clean slate to start over again. Be careful, you will loose state with
+    terraform as well!
 - `globals` Set a number of global parameters to make working with languages,
   countries and stores a bit easier
 

@@ -10,7 +10,7 @@ export class view {
     return new Promise((resolve, reject) => {
       const env = view.templateEngine(searchpath)
       env.addFilter("date", (date, format) => dayjsFilter(date, format))
-      env.addFilter("table", (value) => table(value))
+      //env.addFilter("table", (value) => table(value))
       env.addFilter("color", (value: string, color: ctcolor) => colorFilter(value, color))
       env.addFilter("keyPair", (key: string, value: any) => keyPair(key, value))
       env.addFilter("boolPair", (key: string, value: any) => boolPair(key, value))
