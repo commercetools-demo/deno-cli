@@ -1,0 +1,17 @@
+{{"key"  | keyPair(project)}}
+{{"name" | keyPair(project)}}
+{{"version" | keyPair(project)}}
+---
+{{"countries" | keyPair(project)}}
+{{"currencies" | keyPair(project)}}
+{{"languages" | keyPair(project)}}
+---
+{{"createdAt" | datePair(project, 'DD-MM-YYYY')}}
+{{"lastModifiedAt" | datePair(project, 'DD-MM-YYYY')}}
+{{"trialUntil" | datePair(project, 'DD-MM-YYYY')}}
+---
+{{"messages" | boolPair(project.messages)}} {{"deleteDaysAfterCreation" | keyPair(project.messages)}}
+{{"allowAddingUnpublishedProducts" | boolPair(project.carts)}}
+{{"countryTaxRateFallbackEnabled" | boolPair(project.carts)}}
+{{"deleteDaysAfterLastModification" | boolPair(project.shoppingLists)}}
+---

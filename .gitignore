@@ -1,0 +1,11 @@
+.vscode
+.env
+test
+ct-config-*
+*.tf
+.terraform
+terraform.tfstate
+.terraform.lock.hcl
+globals.json
+where.ts
+ctcli.code-workspace
