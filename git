@@ -1,7 +1,0 @@
-echo "# deno-cli" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M master
-git remote add origin https://github.com/commercetools-demo/deno-cli.git
-git push -u origin master
