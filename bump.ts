@@ -1,10 +1,7 @@
+#!/usr/bin/env -S deno run --allow-all
 import { Command } from "./deps.ts";
 
-const FILENAME = "./version.json"
-
-interface iVersion {
-  version: string
-}
+const FILENAME = "./version.txt"
 
 interface iDetailVersion {
   prefix: string
@@ -25,18 +22,6 @@ await new Command()
         if (major !== undefined) increaseMajor()
       })
       .parse(Deno.args)
-
-      const cmd = [ "describe", "--abbrev=0", "--tags"];
-      const command = new Deno.Command("git", {
-        args: [...cmd],
-        stdout: "piped",
-        stderr: "piped"
-      })
-      const { code, stdout, stderr } = await command.outputSync();
-      console.log(new TextDecoder().decode(stdout));
-      console.log(new TextDecoder().decode(stderr));
-      console.log(code);
-
 
 function increasePatch() {
   const current = readVersion()
@@ -73,24 +58,16 @@ function versionToSting(version: iDetailVersion | undefined): string {
 
 function readVersion(): iDetailVersion | undefined {
   let rawversion = ""
-  let parsedversion: iVersion = {version:"v0.0.0"}
   try {
     rawversion = Deno.readTextFileSync(FILENAME)
   }
   catch (_error) {
-    rawversion = `{"version": "v0.0.0"}`
-  }
-  try {
-    parsedversion = JSON.parse(rawversion)
-  }
-  catch (_error) {
-    console.log(_error)
-    return undefined
+    rawversion = `v0.0.0`
   }
   const v: iDetailVersion = {prefix: "", major: 0, minor: 0, patch: 0}
-  const hasPrefix = !isCharNumber(parsedversion.version[0])
-  const prefix = (hasPrefix) ? parsedversion.version[0] : ""
-  const withoutPrefix = (hasPrefix) ? parsedversion.version.slice(1): parsedversion.version
+  const hasPrefix = !isCharNumber(rawversion[0])
+  const prefix = (hasPrefix) ? rawversion[0] : ""
+  const withoutPrefix = (hasPrefix) ? rawversion.slice(1): rawversion
   const vArray = withoutPrefix.split(".")
   v.prefix = prefix
   v.major = Number(vArray[0])
@@ -101,6 +78,5 @@ function readVersion(): iDetailVersion | undefined {
 
 function writeVersion(version: iDetailVersion | undefined) {
   if (version === undefined) return
-  const rawversion: iVersion = {version: versionToSting(version)}
-  Deno.writeTextFileSync(FILENAME, JSON.stringify(rawversion))
+  Deno.writeTextFileSync(FILENAME, versionToSting(version))
 }
