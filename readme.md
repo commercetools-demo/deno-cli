@@ -4,11 +4,11 @@
 
 how to run:
 
-`deno run -A https://deno.land/x/ctcli/ct.ts -i` this runs the command for you.
+`deno run -A https://deno.land/x/commercetools_demo_cli/cli.ts -i` this runs the command for you.
 
 or install it as a command line function:
 
-`deno install -A https://deno.land/x/ctcli/ct.ts`
+`deno install -A https://deno.land/x/commercetools_demo_cli/cli.ts`
 
 this allows you to run:
 
