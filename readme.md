@@ -57,4 +57,4 @@ _**commands**_
   countries and stores a bit easier
 
   _**history:**_
-  - 23-03-2023 first release
+  - 1-05-2023 first release
