@@ -1,6 +1,6 @@
 # commercetools cli
 
-### a CLI to perform commands to a commercetools project
+### A commercetools command line interface using Deno
 
 how to run:
 
