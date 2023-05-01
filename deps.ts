@@ -38,7 +38,7 @@ export type {
   Cart
 } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 export { dateToString } from "https://deno.land/x/date_format_deno/mod.ts";
-import nunjucks from "https://deno.land/x/nunjucks@3.2.3-2/mod.js";
+import nunjucks from "npm:nunjucks"
 export {nunjucks} 
 export {
   SpinnerTypes,

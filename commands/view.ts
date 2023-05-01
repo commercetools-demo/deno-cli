@@ -25,8 +25,9 @@ export class view {
     const filename = `${templateName}.njk`
     let path = ""
     if (commandname !== "") {
-      const __dirname = new URL('.', import.meta.url).pathname;
-      path = `${__dirname}/${commandname}/`
+      //const __dirname = new URL('.', import.meta.url).pathname;
+      path = `./views/${commandname}/`
+      //path = `${__dirname}/${commandname}/`
     }
     const myview = await view.renderengine(filename, data, path)
     console.log(myview)
