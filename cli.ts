@@ -28,6 +28,7 @@ console.log(
   ),
 );
 
+
 await commander.start();
 await checkcliversion()
 
@@ -57,7 +58,7 @@ async function checkcliversion() {
     console.log(
       colors.brightRed(
         `There is a newer version of the cli available: ${stat.tag_name} please update the cli with the following command:
-        deno cache -r  https://deno.land/x/commercetools_demo_cli/cli.ts`,
+        deno https://deno.land/x/commercetools_demo_cli/cli.ts --upgrade`,
       ),
     );
   }
