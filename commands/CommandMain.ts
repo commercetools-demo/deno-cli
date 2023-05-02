@@ -26,18 +26,13 @@ export class CommandMain extends baseCommand implements iCommand {
   version() {
     return version.version
   }
-  
 }
 
 async function upgradeCLI() {
   console.log("updating the cli")
   
   const command = new Deno.Command(Deno.execPath(), {
-    args: [
-      "cache",
-      "-r",
-      "https://deno.land/x/commercetools_demo_cli/cli.ts"
-    ]
+    args: ["cache","-r","https://deno.land/x/commercetools_demo_cli/cli.ts"]
   });
   const child = command.spawn();
   const status = await child.status;
