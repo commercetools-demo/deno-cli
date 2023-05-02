@@ -1,7 +1,7 @@
 on: 
   push:
     branches:
-      - master
+      - master_diabled_for_now
 
 jobs:
   release-on-push:
