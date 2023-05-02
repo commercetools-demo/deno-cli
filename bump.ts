@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-all
 import { Command } from "./deps.ts";
 
-const FILENAME = "./version.txt"
+const FILENAME = "./version"
 
 interface iDetailVersion {
   prefix: string
@@ -59,7 +59,7 @@ function versionToSting(version: iDetailVersion | undefined): string {
 function readVersion(): iDetailVersion | undefined {
   let rawversion = ""
   try {
-    rawversion = Deno.readTextFileSync(FILENAME)
+    rawversion = Deno.readTextFileSync(`${FILENAME}.txt`)
   }
   catch (_error) {
     rawversion = `v0.0.0`
@@ -78,5 +78,6 @@ function readVersion(): iDetailVersion | undefined {
 
 function writeVersion(version: iDetailVersion | undefined) {
   if (version === undefined) return
-  Deno.writeTextFileSync(FILENAME, versionToSting(version))
+  Deno.writeTextFileSync(`${FILENAME}.txt`, versionToSting(version))
+  Deno.writeTextFileSync(`${FILENAME}.json`, JSON.stringify({version: versionToSting(version)}))
 }
