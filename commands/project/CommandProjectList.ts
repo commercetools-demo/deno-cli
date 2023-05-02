@@ -12,7 +12,7 @@ export class CommandProjectList extends baseCommand implements iCommand {
 
   async action() {
     const projectdetails = await project()
-    await view.render('project.view', {project: projectdetails}, "project")
+    if (projectdetails) await view.render('project.view', {project: projectdetails}, "project")
     this.next();
   }
 }

@@ -13,6 +13,7 @@ export class CommandProductList extends baseCommand implements iCommand {
     if (this.interactive) {
       console.log("running product list interactive");
       const productList = await listProducts();
+      if (productList === undefined) return
       const options = [];
       for (const product of productList) {
         options.push({

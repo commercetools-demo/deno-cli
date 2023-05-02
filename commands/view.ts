@@ -22,6 +22,7 @@ export class view {
     })
   }
   static async render(templateName: string, data: any, commandname = "") {
+    if (data === undefined) return
     const filename = `${templateName}.njk`
     let path = ""
     if (commandname !== "") {
