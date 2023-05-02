@@ -20,7 +20,7 @@ export class CommandMain extends baseCommand implements iCommand {
   }
 
   version() {
-    const version = Deno.readTextFileSync("./version.txt")
+    const version = Deno.readTextFileSync("version.txt")
     return version
   }
 }

@@ -11,17 +11,17 @@ interface iDetailVersion {
 }
 
 await new Command()
-      .name("bump")
-      .description("increase version number of the build")
-      .option("-p, --patch", "increase the patch version")
-      .option("-m, --minor", "increase the minor version")
-      .option("-M, --major", "increase the major version")
-      .action(function ({ patch, major, minor }) {
-        if (patch !== undefined) increasePatch()
-        if (minor !== undefined) increaseMinor()
-        if (major !== undefined) increaseMajor()
-      })
-      .parse(Deno.args)
+  .name("bump")
+  .description("increase version number of the build")
+  .option("-p, --patch", "increase the patch version")
+  .option("-m, --minor", "increase the minor version")
+  .option("-M, --major", "increase the major version")
+  .action(function ({ patch, major, minor }) {
+    if (patch !== undefined) increasePatch()
+    if (minor !== undefined) increaseMinor()
+    if (major !== undefined) increaseMajor()
+  })
+  .parse(Deno.args)
 
 function increasePatch() {
   const current = readVersion()
