@@ -1,6 +1,5 @@
 import { Command } from "../deps.ts";
 import { baseCommand, iCommand } from "./baseCommand.ts";
-import build from "./../version.json" assert { type: "json" };
 
 export class CommandMain extends baseCommand implements iCommand {
   constructor() {
