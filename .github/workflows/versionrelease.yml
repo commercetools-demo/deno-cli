@@ -15,7 +15,6 @@ jobs:
       - name: Get version
         id: vars
         run: echo "version=$(cat version.txt)" >> $GITHUB_ENV
-        # run: echo ::set-output name=version::$(cat version.txt)
       - name: Test output
         run: echo "${{ env.version }}"
       - name: Create Release
@@ -24,10 +23,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: |
-            cat version.txt
-          release_name: |
-            cat version.txt
+          tag_name: ${{ env.version }}
+          release_name: ${{ env.version }}
           body: |
             Changes in this Release
             - First Change
