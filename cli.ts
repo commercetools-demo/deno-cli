@@ -12,7 +12,6 @@ import currentversion from "./version.json" assert { type: "json" };
 const MIN_DENO_VERSION = "1.25.0";
 
 ensureMinDenoVersion()
-checkcliversion()
 
 const commander = new CommandMain();
 commander.add(new CommandClient(commander));
@@ -22,10 +21,6 @@ commander.add(new CommandCustomer(commander));
 commander.add(new CommandConfigure(commander));
 commander.add(new CommandGlobals(commander));
 
-
-
-
-
 const handle = sdk.init();
 console.log(
   colors.brightBlue(
@@ -34,7 +29,7 @@ console.log(
 );
 
 await commander.start();
-
+await checkcliversion()
 
 function ensureMinDenoVersion() {
   // Check that the minimum supported Deno version is being used.
@@ -60,7 +55,7 @@ async function checkcliversion() {
   
   if (stat.tag_name !== currentversion.version) {
     console.log(
-      colors.bgBrightRed(
+      colors.brightRed(
         `There is a newer version of the cli available: ${stat.tag_name} please update the cli with the following command:
         deno cache -r  https://deno.land/x/commercetools_demo_cli/cli.ts`,
       ),
