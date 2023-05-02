@@ -7,10 +7,12 @@ import { colors, gte } from "./deps.ts";
 import { sdk } from "./deps.ts";
 import { CommandGlobals } from "./commands/CommandGlobals.ts";
 import { CommandCustomer } from "./commands/customer/CommandCustomer.ts";
+import currentversion from "./version.json" assert { type: "json" };
 
 const MIN_DENO_VERSION = "1.25.0";
 
 ensureMinDenoVersion()
+checkcliversion()
 
 const commander = new CommandMain();
 commander.add(new CommandClient(commander));
@@ -19,6 +21,10 @@ commander.add(new CommandProduct(commander));
 commander.add(new CommandCustomer(commander));
 commander.add(new CommandConfigure(commander));
 commander.add(new CommandGlobals(commander));
+
+
+
+
 
 const handle = sdk.init();
 console.log(
@@ -45,5 +51,19 @@ function ensureMinDenoVersion() {
 
     console.error(message);
     Deno.exit(-1)
+  }
+}
+
+async function checkcliversion() {
+  const rel  = await fetch(`https://api.github.com/repos/commercetools-demo/deno-cli/releases/latest`)
+  const stat = await rel.json()
+  
+  if (stat.tag_name !== currentversion.version) {
+    console.log(
+      colors.bgBrightRed(
+        `There is a newer version of the cli available: ${stat.tag_name} please update the cli with the following command:
+        deno cache -r  https://deno.land/x/commercetools_demo_cli/cli.ts`,
+      ),
+    );
   }
 }
