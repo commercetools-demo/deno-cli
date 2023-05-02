@@ -1,5 +1,6 @@
 import { Command } from "../deps.ts";
 import { baseCommand, iCommand } from "./baseCommand.ts";
+import * as path from "https://deno.land/std@0.138.0/path/mod.ts";
 
 export class CommandMain extends baseCommand implements iCommand {
   constructor() {
@@ -19,7 +20,13 @@ export class CommandMain extends baseCommand implements iCommand {
     else this._cmd.showHelp();
   }
 
+  getModuleDir(importMeta: ImportMeta): string {
+    return path.resolve(path.dirname(path.fromFileUrl(importMeta.url)));
+  }
+  
   version() {
+    const dir = this.getModuleDir(import.meta);
+    console.log(dir);
     const version = Deno.readTextFileSync("version.txt")
     return version
   }
