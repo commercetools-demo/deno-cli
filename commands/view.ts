@@ -47,7 +47,7 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
 
   getSource(name: string, callback: nunjucks.Callback<Error, nunjucks.LoaderSource>): void | nunjucks.LoaderSource {
     const path = this.path + name
-    console.log(`loading view: ${path}`)
+    console.log(`loading view: ${path} hostname: ${Deno.hostname()} mainmodule: ${Deno.mainModule}`)
     Deno.readTextFile(path).then((data) => {
       callback(null, {
         src: data,
