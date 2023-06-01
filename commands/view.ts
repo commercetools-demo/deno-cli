@@ -1,6 +1,13 @@
 import { colors, nunjucks, ctcolor } from "../deps.ts";
 import dayjs from "npm:dayjs";
 
+enum loaderlocation  {
+  filesystem,
+  denoland,
+  other,
+  undefined
+}
+
 export class view {
   static templateEngine(searchpath: string): nunjucks.Environment {
     return new nunjucks.Environment(denoLoader.init(searchpath))
@@ -37,6 +44,7 @@ export class view {
 
 class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
   private path = ""
+  private loc: loaderlocation = loaderlocation.undefined
   async = true
 
   static init(searchPaths?: string | string[]): denoLoader {
@@ -48,6 +56,33 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
   getSource(name: string, callback: nunjucks.Callback<Error, nunjucks.LoaderSource>): void | nunjucks.LoaderSource {
     const path = this.path + name
     console.log(`loading view: ${path} hostname: ${Deno.hostname()} mainmodule: ${Deno.mainModule}`)
+
+    const location = new URL(Deno.mainModule)
+    if (location.protocol === "file:") this.loc = loaderlocation.filesystem
+    if (location.protocol === "https:") this.loc = loaderlocation.denoland
+
+    switch(this.loc) {
+      case loaderlocation.filesystem: {
+        console.log("module loaded from the filesystem")
+        console.log(`loading view from: ${path}`)
+        break
+      }
+      case loaderlocation.denoland: {
+        console.log("module loaded from denoland")
+        console.log(`loading view from a mix of path: ${path} and: ${Deno.mainModule}`)
+        break
+      }
+      case loaderlocation.other: {
+        console.log("module loaded from somewhereelse")
+        break
+      }
+      case loaderlocation.undefined: {
+        console.log("module loaded from we do not know where")
+        break
+      }
+    }
+
+
     Deno.readTextFile(path).then((data) => {
       callback(null, {
         src: data,
