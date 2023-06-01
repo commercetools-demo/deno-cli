@@ -68,7 +68,7 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
         break
       }
       case loaderlocation.denoland: {
-        console.log("module loaded from denoland!")
+        console.log("module loaded from denoland!!")
         console.log(`loading view from a mix of path: ${path} and: ${Deno.mainModule}`)
         break
       }
