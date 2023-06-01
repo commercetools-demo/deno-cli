@@ -56,7 +56,7 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
 
   getSource(name: string, callback: nunjucks.Callback<Error, nunjucks.LoaderSource>): void | nunjucks.LoaderSource {
     const path = this.path + name
-    console.log(`loading view: ${path} hostname: ${Deno.hostname()} mainmodule: ${Deno.mainModule}`)
+    //console.log(`loading view: ${path} hostname: ${Deno.hostname()} mainmodule: ${Deno.mainModule}`)
 
     const location = new URL(Deno.mainModule)
     if (location.protocol === "file:") this.loc = loaderlocation.filesystem
@@ -64,8 +64,8 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
 
     switch(this.loc) {
       case loaderlocation.filesystem: {
-        console.log("module loaded from the filesystem")
-        console.log(`loading view from: ${path}`)
+        //console.log("module loaded from the filesystem")
+        //console.log(`loading view from: ${path}`)
         Deno.readTextFile(path).then((data) => {
           callback(null, {
             src: data,
@@ -76,11 +76,11 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
         break
       }
       case loaderlocation.denoland: {
-        console.log("module loaded from denoland!!")
-        console.log(`loading view from a mix of path: ${path} and: ${Deno.mainModule}`)
+        //console.log("module loaded from denoland!!")
+        //console.log(`loading view from a mix of path: ${path} and: ${Deno.mainModule}`)
         //  https://deno.land/x/commercetools_demo_cli/cli.ts
         const rmpath = dirname(Deno.mainModule) + path.replace(".", "")
-        console.log(`something like this: ${rmpath}`)
+        //console.log(`something like this: ${rmpath}`)
         fetch(rmpath).then(response => {
           if (!response.ok) {
             throw new Error(response.statusText)
@@ -89,24 +89,15 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
             callback(null, {
               src: data,
               rmpath,
-              noCache: true,
+              noCache: false,
             })
           })
         })
         break
       }
-      case loaderlocation.other: {
-        console.log("module loaded from somewhereelse")
-        break
-      }
-      case loaderlocation.undefined: {
-        console.log("module loaded from we do not know where")
-        break
-      }
-    }
-
-
-    
+      case loaderlocation.other: 
+      case loaderlocation.undefined: 
+    }    
   }
 }
 
