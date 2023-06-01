@@ -1,5 +1,6 @@
 import { colors, nunjucks, ctcolor } from "../deps.ts";
 import dayjs from "npm:dayjs";
+import { dirname } from "https://deno.land/std@0.190.0/path/mod.ts";
 
 enum loaderlocation  {
   filesystem,
@@ -65,11 +66,16 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
       case loaderlocation.filesystem: {
         console.log("module loaded from the filesystem")
         console.log(`loading view from: ${path}`)
+        const rmpath = dirname(Deno.mainModule) + path.replace(".", "")
+        console.log(`something like this: ${rmpath}`)
         break
       }
       case loaderlocation.denoland: {
         console.log("module loaded from denoland!!")
         console.log(`loading view from a mix of path: ${path} and: ${Deno.mainModule}`)
+        //  https://deno.land/x/commercetools_demo_cli/cli.ts
+        const rmpath = dirname(Deno.mainModule) + path.replace(".", "")
+        console.log(`something like this: ${rmpath}`)
         break
       }
       case loaderlocation.other: {
