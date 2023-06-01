@@ -85,10 +85,12 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
           if (!response.ok) {
             throw new Error(response.statusText)
           }
-          callback(null, {
-            src: response.text(),
-            rmpath,
-            noCache: true,
+          response.text().then((data) => {
+            callback(null, {
+              src: data,
+              rmpath,
+              noCache: true,
+            })
           })
         })
         break
