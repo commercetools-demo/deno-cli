@@ -66,8 +66,13 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
       case loaderlocation.filesystem: {
         console.log("module loaded from the filesystem")
         console.log(`loading view from: ${path}`)
-        const rmpath = dirname(Deno.mainModule) + path.replace(".", "")
-        console.log(`something like this: ${rmpath}`)
+        Deno.readTextFile(path).then((data) => {
+          callback(null, {
+            src: data,
+            path,
+            noCache: true,
+          })
+        })
         break
       }
       case loaderlocation.denoland: {
@@ -76,6 +81,16 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
         //  https://deno.land/x/commercetools_demo_cli/cli.ts
         const rmpath = dirname(Deno.mainModule) + path.replace(".", "")
         console.log(`something like this: ${rmpath}`)
+        fetch(rmpath).then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText)
+          }
+          callback(null, {
+            src: response.text(),
+            rmpath,
+            noCache: true,
+          })
+        })
         break
       }
       case loaderlocation.other: {
@@ -89,13 +104,7 @@ class denoLoader extends nunjucks.Loader implements nunjucks.ILoader {
     }
 
 
-    Deno.readTextFile(path).then((data) => {
-      callback(null, {
-        src: data,
-        path,
-        noCache: true,
-      })
-    })
+    
   }
 }
 
