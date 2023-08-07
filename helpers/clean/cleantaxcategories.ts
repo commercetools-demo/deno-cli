@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk, Customer } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleantaxcategories(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .taxCategories()
     .get()
     .execute();
@@ -15,8 +13,7 @@ export async function cleantaxcategories(handle: sdk) {
       `Deleting taxcategory ${taxcategory.key} with ID: ${taxcategory.id}`,
     );
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .taxCategories()
       .withId({ ID: taxcategory.id })
       .delete({ queryArgs: { version: taxcategory.version } })

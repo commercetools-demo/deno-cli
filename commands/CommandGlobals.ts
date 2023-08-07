@@ -1,6 +1,7 @@
+import { prompt, Select } from "https://deno.land/x/cliffy/prompt/mod.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
 import { project } from "../helpers/project/project.ts";
 import { storesAll } from "../helpers/stores/stores.ts";
-import { colors, prompt, Select } from "./../deps.ts";
 import { baseCommand, iCommand } from "./baseCommand.ts";
 
 export class CommandGlobals extends baseCommand implements iCommand {

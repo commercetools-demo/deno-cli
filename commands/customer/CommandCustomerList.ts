@@ -1,14 +1,8 @@
-import {
-  Address,
-  Cell,
-  colors,
-  Customer,
-  dateToString,
-  prompt,
-  Row,
-  Select,
-  Table,
-} from "../../deps.ts";
+import { Cell, Row, Table } from "https://deno.land/x/cliffy/table/mod.ts";
+import { prompt, Select } from "https://deno.land/x/cliffy/prompt/mod.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
+import { dateToString } from "https://deno.land/x/date_format_deno/mod.ts";
+import {  Address, Customer, } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 import { listCustomers } from "../../helpers/customers/list.ts";
 import { customerDetails } from "../../helpers/customers/details.ts";
 import { baseCommand, iCommand } from "./../baseCommand.ts";

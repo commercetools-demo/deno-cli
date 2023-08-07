@@ -1,10 +1,9 @@
-import { Cart, sdk } from "../../deps.ts";
+import { sdk, Cart } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function carts(): Promise<Cart[]> {
   const handle = sdk.init()
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey: handle.projectKey })
+    .root()
     .carts()
     .get()
     .execute();

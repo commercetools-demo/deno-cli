@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleanextensions(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .extensions()
     .get()
     .execute();
@@ -15,8 +13,7 @@ export async function cleanextensions(handle: sdk) {
       `Deleting extensions ${extensions.key} with ID: ${extensions.id}`,
     );
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .extensions()
       .withId({ ID: extensions.id })
       .delete({ queryArgs: { version: extensions.version } })

@@ -1,25 +1,22 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleancustomergroups(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .customerGroups()
     .get()
     .execute();
   const customergrouplist = result.body.results;
   if (!customergrouplist.length) console.log(`No customergroups to delete`);
-  customergrouplist.map(async (customergroup) => {
+  for (const customergroup of customergrouplist) {
     console.log(
       `Deleting customergroup ${customergroup.key} with ID: ${customergroup.id}`,
     );
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .customerGroups()
       .withId({ ID: customergroup.id })
       .delete({ queryArgs: { version: customergroup.version } })
       .execute();
-  });
+  }    
 }

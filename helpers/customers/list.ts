@@ -1,9 +1,8 @@
-import { sdk } from "../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 async function getCustomers(handle: sdk, offset?: number, limit?: number) {
   const customers = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey: handle.projectKey })
+    .root()
     .customers()
     .get({ queryArgs: { offset: offset, limit: limit } })
     .execute();

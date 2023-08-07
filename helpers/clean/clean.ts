@@ -10,6 +10,7 @@ export { cleanorders } from "./cleanorders.ts";
 export { cleancarts } from "./cleancarts.ts";
 export { cleanextensions } from "./cleanextensions.ts";
 export { cleansubscriptions } from "./cleansubscriptions.ts";
+export { cleandiscountcodes } from "./cleandiscountcodes.ts";
 export { cleancartdiscounts } from "./cleancartdiscounts.ts";
 export { cleanproductdiscounts } from "./cleanproductdiscounts.ts";
 export { cleancustomers } from "./cleancustomers.ts";

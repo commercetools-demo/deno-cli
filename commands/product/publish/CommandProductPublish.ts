@@ -3,7 +3,8 @@ import {
   publishProductByID,
   publishProductByKey,
 } from "../../../helpers/products/publishproducts.ts";
-import { colors, prompt, Select } from "./../../../deps.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
+import { prompt, Select } from "https://deno.land/x/cliffy/prompt/mod.ts";
 import { baseCommand, iCommand } from "./../../baseCommand.ts";
 import { listProducts } from "../../../helpers/products/listproducts.ts";
 

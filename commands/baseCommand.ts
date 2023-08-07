@@ -1,4 +1,5 @@
-import { Command, Select } from "../deps.ts";
+import {Command} from "https://deno.land/x/cliffy/command/mod.ts";
+import { Select } from "https://deno.land/x/cliffy/prompt/mod.ts";
 
 export interface iCommand {
   action(): void;

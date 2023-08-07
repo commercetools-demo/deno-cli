@@ -1,4 +1,4 @@
-import { sdk } from "./../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 import { view } from "./view.ts"
 import { baseCommand, iCommand } from "./baseCommand.ts";
 

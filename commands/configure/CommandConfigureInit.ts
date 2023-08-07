@@ -1,5 +1,5 @@
+import { prompt, Select, Confirm } from "https://deno.land/x/cliffy/prompt/mod.ts";
 import { baseCommand, iCommand } from "./../baseCommand.ts";
-import { Confirm, prompt, Select } from "../../deps.ts";
 
 const configBaseURL =
   `https://raw.githubusercontent.com/commercetools-demo/terraform-commercetools-demoprovisioner/master/examples`;

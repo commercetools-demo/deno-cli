@@ -1,10 +1,5 @@
-import {
-  colors,
-  CustomerImport,
-  ImportContainer,
-  ImportOperationStatus,
-  importsdk,
-} from "./../../deps.ts";
+import { importsdk, ImportContainer, ImportOperationStatus, CustomerImport, } from "https://deno.land/x/commercetools_demo_sdk/importsdk.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
 import { importbatch } from "./../import/batchimport.ts";
 
 async function importCustomers(
@@ -13,8 +8,7 @@ async function importCustomers(
   customers: CustomerImport[],
 ): Promise<ImportOperationStatus[]> {
   const result = await importer
-    .apiRoot()
-    .withProjectKeyValue({ projectKey: importer.projectKey })
+    .root()
     .customers()
     .importContainers()
     .withImportContainerKeyValue({ importContainerKey: container.key })

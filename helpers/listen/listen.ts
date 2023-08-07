@@ -1,29 +1,26 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 async function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function messages(handle: sdk) {
+async function messages(handle: sdk, limit=500) {
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey: handle.projectKey })
+    .root()
     .messages()
-    .get()
+    .get({queryArgs: {limit: limit}})
     .execute();
-  return result.body;
+  return result;
 }
 
 async function enableMessages(handle: sdk) {
   const currentproject = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey: handle.projectKey })
+    .root()
     .get()
     .execute();
   if (!currentproject.body.messages.enabled) {
     const newproject = await handle
-      .apiRoot()
-      .withProjectKey({ projectKey: handle.projectKey })
+      .root()
       .post({
         body: {
           actions: [{
@@ -42,14 +39,12 @@ async function enableMessages(handle: sdk) {
 
 async function disableMessages(handle: sdk) {
   const currentproject = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey: handle.projectKey })
+    .root()
     .get()
     .execute();
   if (!currentproject.body.messages.enabled) {
     const newproject = await handle
-      .apiRoot()
-      .withProjectKey({ projectKey: handle.projectKey })
+      .root()
       .post({
         body: {
           actions: [{
@@ -66,19 +61,32 @@ async function disableMessages(handle: sdk) {
   }
 }
 
+async function getStateByID(handle: sdk, id: string) {
+  const state = await handle
+    .root()
+    .states()
+    .withId({ID: id})
+    .get()
+    .execute()
+  return state.body
+}
+
 const handle = sdk.init();
 await enableMessages(handle);
 const starting = await messages(handle);
-let msgCount = starting.count;
+let msgCount = starting.body.total;
 console.log(`we have ${msgCount} messages in queue`);
 while (1) {
-  const allMessages = await messages(handle);
-  if (allMessages.count > msgCount) { // we have something new!
-    const latest = allMessages.results.slice(msgCount - allMessages.count);
+  const allMessages = await messages(handle, 500);
+  if (allMessages.body.total > msgCount) { // we have something new!
+    const latest = allMessages.body.results.slice(msgCount - allMessages.body.total);
     for (const msg of latest) {
-      console.log(msg.type);
+      let state = undefined
+      if (msg.state !== undefined) state = await getStateByID(handle, msg.state.id)
+      console.log(`type: ${msg.type} s#: ${msg.sequenceNumber} ${(state) ? "state: " + state.key : ""}` );
+      //console.log(JSON.stringify(msg, null, 3))
     }
-    msgCount = allMessages.count;
+    msgCount = allMessages.body.total;
   }
   //console.log(await messages(handle))
   await (timeout(1000));

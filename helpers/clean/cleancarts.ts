@@ -1,23 +1,20 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleancarts(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .carts()
     .get()
     .execute();
   const cartslist = result.body.results;
   if (!cartslist.length) console.log(`No carts to delete`);
-  cartslist.map(async (carts) => {
-    console.log(`Deleting carts ${carts.key} with ID: ${carts.id}`);
+  cartslist.map(async (cart: Cart) => {
+    console.log(`Deleting cart ${cart.key} with ID: ${cart.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .carts()
-      .withId({ ID: carts.id })
-      .delete({ queryArgs: { version: carts.version } })
+      .withId({ ID: cart.id })
+      .delete({ queryArgs: { version: cart.version } })
       .execute();
   });
 }

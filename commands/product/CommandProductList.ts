@@ -1,4 +1,7 @@
-import { colors, ProductVariant, prompt, Select, Table } from "../../deps.ts";
+import { ProductVariant } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
+import { prompt, Select } from "https://deno.land/x/cliffy/prompt/mod.ts";
+import { Table } from "https://deno.land/x/cliffy/table/mod.ts";
 import { listProducts } from "../../helpers/products/listproducts.ts";
 import { listVariants } from "../../helpers/products/listvariants.ts";
 import { baseCommand, iCommand } from "./../baseCommand.ts";

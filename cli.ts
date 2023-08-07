@@ -3,11 +3,12 @@ import { CommandMain } from "./commands/CommandMain.ts";
 import { CommandProject } from "./commands/project/CommandProject.ts";
 import { CommandProduct } from "./commands/product/CommandProduct.ts";
 import { CommandConfigure } from "./commands/configure/CommandConfigure.ts";
-import { colors, gte } from "./deps.ts";
-import { sdk } from "./deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
+import { gte } from "https://deno.land/std@0.178.0/semver/mod.ts";
 import { CommandGlobals } from "./commands/CommandGlobals.ts";
 import { CommandCustomer } from "./commands/customer/CommandCustomer.ts";
 import currentversion from "./version.json" assert { type: "json" };
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
 
 const MIN_DENO_VERSION = "1.25.0";
 

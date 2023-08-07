@@ -16,10 +16,8 @@ console.log(
 );
 
 const handle = sdk.init();
-const projectKey = handle.projectKey;
 const cart = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .carts()
   .withId({ ID: cartid })
   .get()
@@ -28,8 +26,7 @@ console.log(cart.body);
 const cartversion = cart.body.version;
 
 const disc_cart = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .carts()
   .withId({ ID: cartid })
   .post({
@@ -46,8 +43,7 @@ const disc_cart = await handle
   .execute();
 
 const order = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .orders()
   .post({
     body: {
@@ -65,15 +61,13 @@ console.log(`order created with id: ${order.body.id}`);
 console.log(order.body);
 await delay(5000);
 const delcartver = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .carts()
   .withId({ ID: cart.body.id })
   .get()
   .execute();
 const delcart = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .carts()
   .withId({ ID: cart.body.id })
   .delete({ queryArgs: { version: delcartver.body.version } })

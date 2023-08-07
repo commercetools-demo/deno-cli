@@ -1,9 +1,4 @@
-import {
-  ImportContainer,
-  ImportOperationStatus,
-  importsdk,
-  ProductImport,
-} from "../../deps.ts";
+import { importsdk, ImportContainer, ImportOperationStatus, ProductImport, } from "https://deno.land/x/commercetools_demo_sdk/importsdk.ts";
 import duck from "./definitions/duck.json" assert { type: "json" };
 import { importbatch } from "../import/batchimport.ts";
 
@@ -13,8 +8,7 @@ async function importProducts(
   products: ProductImport[],
 ): Promise<ImportOperationStatus[]> {
   const result = await importer
-    .apiRoot()
-    .withProjectKeyValue({ projectKey: importer.projectKey })
+    .root()
     .productDrafts()
     .importContainers()
     .withImportContainerKeyValue({ importContainerKey: container.key })

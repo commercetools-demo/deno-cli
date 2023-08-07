@@ -1,6 +1,7 @@
 import { importRandomCustomers } from "../../helpers/customers/importcustomers.ts";
 import { baseCommand, iCommand } from "./../baseCommand.ts";
-import { colors, Number, prompt } from "../../deps.ts";
+import { prompt, Number } from "https://deno.land/x/cliffy/prompt/mod.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
 
 export class CommandCustomerImport extends baseCommand implements iCommand {
   constructor(parent: iCommand) {

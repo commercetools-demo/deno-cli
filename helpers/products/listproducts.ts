@@ -1,17 +1,15 @@
-import { sdk } from "../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function listProducts(whereclause?: string) {
   const predicate = (whereclause) ? { queryArgs: { where: whereclause } } : {};
   const handle = await sdk.init();
-  const projectKey = handle.projectKey;
   try {
-  const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
-    .products()
-    .get(predicate)
-    .execute();
-  return result.body.results;
+    const result = await handle
+      .root()
+      .products()
+      .get(predicate)
+      .execute();
+    return result.body.results;
   }
   catch (_error) {
     return undefined

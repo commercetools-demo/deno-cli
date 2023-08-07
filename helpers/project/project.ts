@@ -1,4 +1,4 @@
-import { Project, sdk } from "../../deps.ts";
+import { sdk, Project } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function project(): Promise<Project> {
   const res = await new ProjectModel().get()
@@ -7,8 +7,7 @@ export async function project(): Promise<Project> {
   try {
     const handle = sdk.init();
     const result = await handle
-      .apiRoot()
-      .withProjectKey({ projectKey: handle.projectKey })
+      .root()
       .get()
       .execute();
     return result.body;
@@ -25,8 +24,7 @@ abstract class baseModel<T>  {
     //console.log('abstract model constructor')
     this.handle = sdk.init()
     this.root = this.handle
-      .apiRoot()
-      .withProjectKey({ projectKey: this.handle.projectKey })
+      .root()
   }
 
   abstract get(): Promise<T> 

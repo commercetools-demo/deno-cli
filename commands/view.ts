@@ -1,6 +1,16 @@
-import { colors, nunjucks, ctcolor } from "../deps.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
+import nunjucks from "npm:nunjucks"
 import dayjs from "npm:dayjs";
 import { dirname } from "https://deno.land/std@0.190.0/path/mod.ts";
+
+enum ctcolor {
+  GREEN = 0xff32D3BC,
+  BLUE = 0xff3FA0EA,
+  YELLOW = 0xffFFD00A,
+  ORANGE = 0xffFF761C,
+  GRAY = 0xffEFEFEF,
+  TEAL = 0xff003037,
+}
 
 enum loaderlocation  {
   filesystem,

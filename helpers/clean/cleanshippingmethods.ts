@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleanshippingmethods(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .shippingMethods()
     .get()
     .execute();
@@ -15,8 +13,7 @@ export async function cleanshippingmethods(handle: sdk) {
       `Deleting shippingmethods ${shippingmethods.key} with ID: ${shippingmethods.id}`,
     );
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .shippingMethods()
       .withId({ ID: shippingmethods.id })
       .delete({ queryArgs: { version: shippingmethods.version } })

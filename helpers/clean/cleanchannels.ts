@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleanchannels(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .channels()
     .get()
     .execute();
@@ -13,8 +11,7 @@ export async function cleanchannels(handle: sdk) {
   channellist.map(async (channel) => {
     console.log(`Deleting channel ${channel.key} with ID: ${channel.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .channels()
       .withId({ ID: channel.id })
       .delete({ queryArgs: { version: channel.version } })

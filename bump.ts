@@ -1,5 +1,5 @@
 #!/usr/bin/env -S deno run --allow-all
-import { Command } from "./deps.ts";
+import {Command} from "https://deno.land/x/cliffy/command/mod.ts";
 
 const FILENAME = "./version"
 

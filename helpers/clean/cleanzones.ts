@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleanzones(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .zones()
     .get()
     .execute();
@@ -13,8 +11,7 @@ export async function cleanzones(handle: sdk) {
   zoneslist.map(async (zones) => {
     console.log(`Deleting zones ${zones.key} with ID: ${zones.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .zones()
       .withId({ ID: zones.id })
       .delete({ queryArgs: { version: zones.version } })

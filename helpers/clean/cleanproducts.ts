@@ -1,11 +1,9 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 // unpublish first 1-2-2023
 // delete product selections aswell 1-2-2023
 export async function cleanproducts(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .products()
     .get()
     .execute();
@@ -14,8 +12,7 @@ export async function cleanproducts(handle: sdk) {
   productslist.map(async (products) => {
     console.log(`unpublishing product ${products.key} with ID: ${products.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .products()
       .withId({ ID: products.id })
       .post({
@@ -30,8 +27,7 @@ export async function cleanproducts(handle: sdk) {
   });
 
   const uResult = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .products()
     .get()
     .execute();
@@ -39,8 +35,7 @@ export async function cleanproducts(handle: sdk) {
   unpublishedProductslist.map(async (products) => {
     console.log(`Deleting products ${products.key} with ID: ${products.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .products()
       .withId({ ID: products.id })
       .delete({ queryArgs: { version: products.version } })

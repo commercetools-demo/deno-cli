@@ -1,25 +1,22 @@
-import { sdk } from "./../../deps.ts";
+import { sdk, CartDiscount } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleancartdiscounts(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .cartDiscounts()
     .get()
     .execute();
   const cartdiscountslist = result.body.results;
   if (!cartdiscountslist.length) console.log(`No cartdiscounts to delete`);
-  cartdiscountslist.map(async (cartdiscounts) => {
+  cartdiscountslist.map(async (cartdiscount: CartDiscount) => {
     console.log(
-      `Deleting cartdiscounts ${cartdiscounts.key} with ID: ${cartdiscounts.id}`,
+      `Deleting cartdiscounts ${cartdiscount.key} with ID: ${cartdiscount.id}`,
     );
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .cartDiscounts()
-      .withId({ ID: cartdiscounts.id })
-      .delete({ queryArgs: { version: cartdiscounts.version } })
+      .withId({ ID: cartdiscount.id })
+      .delete({ queryArgs: { version: cartdiscount.version } })
       .execute();
   });
 }

@@ -1,4 +1,4 @@
-import { Confirm } from "../../deps.ts";
+import { Confirm } from "https://deno.land/x/cliffy/prompt/mod.ts";
 import { clean } from "../../helpers/configure/clean.ts";
 import { baseCommand, iCommand } from "../baseCommand.ts";
 

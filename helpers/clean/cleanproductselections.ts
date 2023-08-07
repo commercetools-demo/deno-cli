@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleanproductselections(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .productSelections()
     .get()
     .execute();
@@ -12,14 +10,13 @@ export async function cleanproductselections(handle: sdk) {
   if (!productselectionslist.length) {
     console.log(`No productselections to delete`);
   }
-  productselectionslist.map(async (productselections) => {
+  for (const productselections of productselectionslist) {
     console.log(`Deleting productselection with ID: ${productselections.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .productSelections()
       .withId({ ID: productselections.id })
       .delete({ queryArgs: { version: productselections.version } })
       .execute();
-  });
+  }
 }

@@ -1,13 +1,10 @@
-import { ProductVariant, sdk } from "../../deps.ts";
-
+import { sdk, ProductVariant } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 export async function listVariants(
   productID: string,
 ): Promise<ProductVariant[]> {
   const handle = await sdk.init();
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .products()
     .withId({ ID: productID })
     .get(

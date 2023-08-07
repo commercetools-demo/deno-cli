@@ -1,10 +1,9 @@
-import { Customer, sdk } from "../../deps.ts";
+import { sdk, Customer } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function customerDetails(id: string): Promise<Customer> {
   const handle = sdk.init();
   const cust = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey: handle.projectKey })
+    .root()
     .customers()
     .withId({ ID: id })
     .get()

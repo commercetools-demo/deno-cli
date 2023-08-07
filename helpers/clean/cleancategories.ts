@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleancategories(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .categories()
     .get({ queryArgs: { limit: 100 } })
     .execute();
@@ -13,8 +11,7 @@ export async function cleancategories(handle: sdk) {
   categorylist.map(async (category) => {
     console.log(`Deleting category ${category.key} with ID: ${category.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .categories()
       .withId({ ID: category.id })
       .delete({ queryArgs: { version: category.version } })

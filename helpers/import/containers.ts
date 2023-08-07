@@ -1,11 +1,9 @@
-import { ImportContainer, ImportOperation, importsdk } from "./../../deps.ts";
+import { importsdk, ImportContainer, ImportOperation } from "https://deno.land/x/commercetools_demo_sdk/importsdk.ts";
 
-export async function getContainers(
-  importer: importsdk,
-): Promise<ImportContainer[]> {
+
+export async function getContainers(importer: importsdk): Promise<ImportContainer[]> {
   const result = await importer
-    .apiRoot()
-    .withProjectKeyValue({ projectKey: importer.projectKey })
+    .root()
     .importContainers()
     .get()
     .execute();
@@ -18,8 +16,7 @@ export async function getContainer(
 ): Promise<ImportContainer | undefined> {
   try {
     const result = await importer
-      .apiRoot()
-      .withProjectKeyValue({ projectKey: importer.projectKey })
+      .root()
       .importContainers()
       .withImportContainerKeyValue({ importContainerKey: key })
       .get()
@@ -36,8 +33,7 @@ export async function createContainer(
   name: string,
 ): Promise<ImportContainer> {
   const result = await importer
-    .apiRoot()
-    .withProjectKeyValue({ projectKey: importer.projectKey })
+    .root()
     .importContainers()
     .post({ body: { key: name } })
     .execute();
@@ -60,8 +56,7 @@ export async function getContainerStatus(
   importID: string,
 ): Promise<ImportOperation> {
   const result = await importer
-    .apiRoot()
-    .withProjectKeyValue({ projectKey: importer.projectKey })
+    .root()
     .importOperations()
     .withIdValue({ id: importID })
     .get({})

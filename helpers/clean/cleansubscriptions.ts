@@ -1,10 +1,8 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleansubscriptions(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .subscriptions()
     .get()
     .execute();
@@ -15,8 +13,7 @@ export async function cleansubscriptions(handle: sdk) {
       `Deleting subscriptions ${subscriptions.key} with ID: ${subscriptions.id}`,
     );
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .subscriptions()
       .withId({ ID: subscriptions.id })
       .delete({ queryArgs: { version: subscriptions.version } })

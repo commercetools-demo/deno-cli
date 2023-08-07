@@ -1,4 +1,4 @@
-import { Confirm } from "../../deps.ts";
+import { Confirm } from "https://deno.land/x/cliffy/prompt/mod.ts";
 import { baseCommand, iCommand } from "../baseCommand.ts";
 
 export class CommandConfigureApply extends baseCommand implements iCommand {

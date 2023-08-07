@@ -1,4 +1,7 @@
-import { Command, sdk } from "../../deps.ts"
+import { Command } from "https://deno.land/x/cliffy/command/command.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
+
+
 
 await new Command()
   .name("checkout cart from web")
@@ -8,10 +11,8 @@ await new Command()
 console.log(`checkout cart from web`);
 
 const handle = sdk.init();
-const projectKey = handle.projectKey;
 const cart = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .carts()
   .post({
     body: {
@@ -44,8 +45,7 @@ const cartversion = cart.body.version;
 const cartid = cart.body.id;
 
 const order = await handle
-  .apiRoot()
-  .withProjectKey({ projectKey })
+  .root()
   .orders()
   .post({
     body: {

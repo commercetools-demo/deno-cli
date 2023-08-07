@@ -1,11 +1,7 @@
-import {
-  colors,
-  ImportContainer,
-  ImportOperationStatus,
-  importsdk,
-  SpinnerTypes,
-  TerminalSpinner,
-} from "./../../deps.ts";
+import { SpinnerTypes, TerminalSpinner} from "https://deno.land/x/spinners/mod.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
+import { importsdk, ImportContainer, ImportOperationStatus } from "https://deno.land/x/commercetools_demo_sdk/importsdk.ts";
+
 import { getContainerStatus, getOrCreateContainer } from "./containers.ts";
 
 export type TypedImporter = (

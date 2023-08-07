@@ -1,24 +1,18 @@
-import { sdk, State } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleanstates(handle: sdk) {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .states()
     .get()
     .execute();
   const stateslist = result.body.results;
   if (!stateslist.length) console.log(`No states to delete`);
-  stateslist.map(async (state: State) => {
-    if (state.builtIn) return;
+  for (const state of stateslist) {
     if (state.transitions?.length === 0) return;
-    console.log(
-      `Removing transitions from state ${state.key} with ID: ${state.id}`,
-    );
+    console.log(`Removing transitions from state ${state.key} with ID: ${state.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .states()
       .withKey({ key: state.key })
       .post(
@@ -35,23 +29,21 @@ export async function cleanstates(handle: sdk) {
         },
       )
       .execute();
-  });
+  }
   const resetresult = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .states()
     .get()
     .execute();
   const resetstateslist = resetresult.body.results;
-  resetstateslist.map(async (state: State) => {
+  for (const state of resetstateslist) {
     if (state.builtIn) return;
     console.log(`Deleting state ${state.key} with ID: ${state.id}`);
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .states()
       .withKey({ key: state.key })
       .delete({ queryArgs: { version: state.version } })
       .execute();
-  });
+  } 
 }

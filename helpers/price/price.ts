@@ -1,4 +1,6 @@
-import { colors, Price } from "../../deps.ts";
+import { Price } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
+import { colors } from "https://deno.land/x/cliffy/ansi/colors.ts";
+
 
 /*
 interface iCentPrecision {

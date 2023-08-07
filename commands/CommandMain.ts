@@ -1,4 +1,4 @@
-import { Command } from "../deps.ts";
+import {Command} from "https://deno.land/x/cliffy/command/mod.ts";
 import { baseCommand, iCommand } from "./baseCommand.ts";
 import version from "./../version.json" assert { type: "json" };
 

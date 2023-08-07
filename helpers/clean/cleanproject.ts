@@ -1,24 +1,20 @@
-import { sdk } from "./../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 async function version(handle: sdk): Promise<number> {
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .get()
     .execute();
   return result.body.version;
 }
 
 export async function cleanproject(handle: sdk) {
-  const projectKey = handle.projectKey;
   const versionno = await version(handle);
   console.log(
     `Cleaning countries, currencies and languages from ${projectKey}`,
   );
   await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .post({
       body: {
         actions: [

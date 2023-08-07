@@ -1,11 +1,9 @@
-import { sdk } from "../../deps.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function publishProductByKey(key: string) {
   const handle = await sdk.init();
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .products()
     .withKey({ key: key })
     .get()
@@ -16,8 +14,7 @@ export async function publishProductByKey(key: string) {
   }
   if (product) {
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .products()
       .withId({ ID: product.id })
       .post({
@@ -35,10 +32,8 @@ export async function publishProductByKey(key: string) {
 
 export async function publishProductByID(id: string) {
   const handle = await sdk.init();
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .products()
     .withId({ ID: id })
     .get()
@@ -49,8 +44,7 @@ export async function publishProductByID(id: string) {
   }
   if (product) {
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .products()
       .withId({ ID: product.id })
       .post({
@@ -68,10 +62,8 @@ export async function publishProductByID(id: string) {
 
 export async function publishAllModifiedProducts() {
   const handle = await sdk.init();
-  const projectKey = handle.projectKey;
   const result = await handle
-    .apiRoot()
-    .withProjectKey({ projectKey })
+    .root()
     .products()
     .get()
     .execute();
@@ -84,8 +76,7 @@ export async function publishAllModifiedProducts() {
       continue;
     }
     await handle
-      .apiRoot()
-      .withProjectKey({ projectKey })
+      .root()
       .products()
       .withId({ ID: product.id })
       .post({
