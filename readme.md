@@ -58,3 +58,4 @@ _**commands**_
 
   _**history:**_
   - 1-05-2023 first release
+  - 7-08-2023 update release
