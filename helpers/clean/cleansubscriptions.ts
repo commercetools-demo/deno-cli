@@ -8,15 +8,13 @@ export async function cleansubscriptions(handle: sdk) {
     .execute();
   const subscriptionslist = result.body.results;
   if (!subscriptionslist.length) console.log(`No subscriptions to delete`);
-  subscriptionslist.map(async (subscriptions) => {
-    console.log(
-      `Deleting subscriptions ${subscriptions.key} with ID: ${subscriptions.id}`,
-    );
+  for (const subscription of subscriptionslist) {
+    console.log(`Deleting subscriptions ${subscription.key} with ID: ${subscription.id}`);
     await handle
       .root()
       .subscriptions()
-      .withId({ ID: subscriptions.id })
-      .delete({ queryArgs: { version: subscriptions.version } })
+      .withId({ ID: subscription.id })
+      .delete({ queryArgs: { version: subscription.version } })
       .execute();
-  });
+  };
 }

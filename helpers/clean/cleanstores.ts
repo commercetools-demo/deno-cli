@@ -8,7 +8,7 @@ export async function cleanstores(handle: sdk) {
     .execute();
   const storeslist = result.body.results;
   if (!storeslist.length) console.log(`No stores to delete`);
-  storeslist.map(async (store) => {
+  for (const store of storeslist) {
     console.log(`Deleting store ${store.key} with ID: ${store.id}`);
     await handle
       .root()
@@ -16,5 +16,5 @@ export async function cleanstores(handle: sdk) {
       .withKey({ key: store.key })
       .delete({ queryArgs: { version: store.version } })
       .execute();
-  });
+  }
 }

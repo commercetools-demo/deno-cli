@@ -10,9 +10,7 @@ async function version(handle: sdk): Promise<number> {
 
 export async function cleanproject(handle: sdk) {
   const versionno = await version(handle);
-  console.log(
-    `Cleaning countries, currencies and languages from ${projectKey}`,
-  );
+  console.log(`Cleaning countries, currencies and languages from ${handle.projectKey}`);
   await handle
     .root()
     .post({

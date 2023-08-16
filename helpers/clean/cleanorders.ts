@@ -4,17 +4,17 @@ export async function cleanorders(handle: sdk) {
   const result = await handle
     .root()
     .orders()
-    .get()
+    .get({queryArgs: {limit: 500}})
     .execute();
   const orderslist = result.body.results;
   if (!orderslist.length) console.log(`No orders to delete`);
-  orderslist.map(async (orders) => {
-    console.log(`Deleting orders with ID: ${orders.id}`);
+  for (const order of orderslist) {
+    console.log(`Deleting orders with ID: ${order.id}`);
     await handle
       .root()
       .orders()
-      .withId({ ID: orders.id })
-      .delete({ queryArgs: { version: orders.version } })
+      .withId({ ID: order.id })
+      .delete({ queryArgs: { version: order.version } })
       .execute();
-  });
+  }
 }

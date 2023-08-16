@@ -8,7 +8,7 @@ export async function cleancategories(handle: sdk) {
     .execute();
   const categorylist = result.body.results;
   if (!categorylist.length) console.log(`No categories to delete`);
-  categorylist.map(async (category) => {
+  for (const category of categorylist) {
     console.log(`Deleting category ${category.key} with ID: ${category.id}`);
     await handle
       .root()
@@ -16,5 +16,5 @@ export async function cleancategories(handle: sdk) {
       .withId({ ID: category.id })
       .delete({ queryArgs: { version: category.version } })
       .execute();
-  });
+  };
 }

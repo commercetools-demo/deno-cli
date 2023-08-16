@@ -8,15 +8,15 @@ export async function cleanextensions(handle: sdk) {
     .execute();
   const extensionslist = result.body.results;
   if (!extensionslist.length) console.log(`No extensions to delete`);
-  extensionslist.map(async (extensions) => {
+  for (const extension of extensionslist) {
     console.log(
-      `Deleting extensions ${extensions.key} with ID: ${extensions.id}`,
+      `Deleting extensions ${extension.key} with ID: ${extension.id}`,
     );
     await handle
       .root()
       .extensions()
-      .withId({ ID: extensions.id })
-      .delete({ queryArgs: { version: extensions.version } })
+      .withId({ ID: extension.id })
+      .delete({ queryArgs: { version: extension.version } })
       .execute();
-  });
+  }
 }

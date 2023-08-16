@@ -1,4 +1,4 @@
-import { sdk, Customer } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
+import { sdk } from "https://deno.land/x/commercetools_demo_sdk/clientsdk.ts";
 
 export async function cleantaxcategories(handle: sdk) {
   const result = await handle
@@ -8,15 +8,13 @@ export async function cleantaxcategories(handle: sdk) {
     .execute();
   const taxcategorylist = result.body.results;
   if (!taxcategorylist.length) console.log(`No taxes to delete`);
-  taxcategorylist.map(async (taxcategory) => {
-    console.log(
-      `Deleting taxcategory ${taxcategory.key} with ID: ${taxcategory.id}`,
-    );
+  for (const taxcategory of taxcategorylist) {
+    console.log(`Deleting taxcategory ${taxcategory.key} with ID: ${taxcategory.id}`)
     await handle
       .root()
       .taxCategories()
       .withId({ ID: taxcategory.id })
       .delete({ queryArgs: { version: taxcategory.version } })
       .execute();
-  });
+  }
 }

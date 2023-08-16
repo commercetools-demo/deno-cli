@@ -8,13 +8,13 @@ export async function cleanproducttypes(handle: sdk) {
     .execute();
   const producttypeslist = result.body.results;
   if (!producttypeslist.length) console.log(`No producttypes to delete`);
-  for (const producttypes of producttypeslist) {
-    console.log(`Deleting producttypes ${producttypes.key} with ID: ${producttypes.id}`);
+  for (const producttype of producttypeslist) {
+    console.log(`Deleting producttypes ${producttype.key} with ID: ${producttype.id}`);
     await handle
       .root()
       .productTypes()
-      .withId({ ID: producttypes.id })
-      .delete({ queryArgs: { version: producttypes.version } })
+      .withId({ ID: producttype.id })
+      .delete({ queryArgs: { version: producttype.version } })
       .execute();
   }
 }

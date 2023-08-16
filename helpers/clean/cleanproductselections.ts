@@ -7,9 +7,7 @@ export async function cleanproductselections(handle: sdk) {
     .get()
     .execute();
   const productselectionslist = result.body.results;
-  if (!productselectionslist.length) {
-    console.log(`No productselections to delete`);
-  }
+  if (!productselectionslist.length) console.log(`No productselections to delete`)
   for (const productselections of productselectionslist) {
     console.log(`Deleting productselection with ID: ${productselections.id}`);
     await handle

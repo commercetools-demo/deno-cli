@@ -8,15 +8,13 @@ export async function cleandiscountcodes(handle: sdk) {
     .execute();
   const discountcodeslist = result.body.results;
   if (!discountcodeslist.length) console.log(`No discountcodes to delete`);
-  discountcodeslist.map(async (discountcode) => {
-    console.log(
-      `Deleting discountcode ${discountcode.key} with ID: ${discountcode.id}`,
-    );
+  for (const discountcode of discountcodeslist) {
+    console.log(`Deleting discountcode with ID: ${discountcode.id}`);
     await handle
       .root()
       .discountCodes()
       .withId({ ID: discountcode.id })
       .delete({ queryArgs: { version: discountcode.version } })
       .execute();
-  });
+  }
 }

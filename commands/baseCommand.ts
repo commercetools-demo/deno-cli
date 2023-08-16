@@ -66,7 +66,7 @@ export abstract class baseCommand implements iCommand {
 
   constructor(
     parent: iCommand | undefined,
-    details: { name: string; description: string },
+    details: { name: string, description: string, arguments?: string, option?: {flag: string, help: string, additional?: string} },
   ) {
     if (baseCommand.globals === undefined) this.initGlobals();
     if (parent === undefined) return; // only to accomodate a rootcommand
@@ -75,7 +75,10 @@ export abstract class baseCommand implements iCommand {
     this._cmd = new Command()
       .name(details.name)
       .description(details.description)
-      .action(() => this.action());
+      .arguments(details.arguments!)
+      
+      .action(() => this.action())
+    if (details.option !== undefined) this._cmd.option(details.option!.flag, details.option!.help)
     this._parent.command().command(this._cmd.getName(), this._cmd);
   }
 

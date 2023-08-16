@@ -7,18 +7,16 @@ export async function cleanproductdiscounts(handle: sdk) {
     .get()
     .execute();
   const productdiscountslist = result.body.results;
-  if (!productdiscountslist.length) {
-    console.log(`No productdiscounts to delete`);
-  }
-  productdiscountslist.map(async (productdiscounts) => {
+  if (!productdiscountslist.length) {console.log(`No productdiscounts to delete`)}
+  for (const productdiscount of productdiscountslist) {
     console.log(
-      `Deleting productdiscounts ${productdiscounts.key} with ID: ${productdiscounts.id}`,
+      `Deleting productdiscounts ${productdiscount.key} with ID: ${productdiscount.id}`,
     );
     await handle
       .root()
       .productDiscounts()
-      .withId({ ID: productdiscounts.id })
-      .delete({ queryArgs: { version: productdiscounts.version } })
+      .withId({ ID: productdiscount.id })
+      .delete({ queryArgs: { version: productdiscount.version } })
       .execute();
-  });
+  };
 }

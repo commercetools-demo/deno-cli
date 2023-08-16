@@ -8,15 +8,13 @@ export async function cleanshippingmethods(handle: sdk) {
     .execute();
   const shippingmethodslist = result.body.results;
   if (!shippingmethodslist.length) console.log(`No shippingmethods to delete`);
-  shippingmethodslist.map(async (shippingmethods) => {
-    console.log(
-      `Deleting shippingmethods ${shippingmethods.key} with ID: ${shippingmethods.id}`,
-    );
+  for (const shippingmethod of shippingmethodslist) {
+    console.log(`Deleting shippingmethods ${shippingmethod.key} with ID: ${shippingmethod.id}`);
     await handle
       .root()
       .shippingMethods()
-      .withId({ ID: shippingmethods.id })
-      .delete({ queryArgs: { version: shippingmethods.version } })
+      .withId({ ID: shippingmethod.id })
+      .delete({ queryArgs: { version: shippingmethod.version } })
       .execute();
-  });
+  }
 }

@@ -8,13 +8,13 @@ export async function cleanzones(handle: sdk) {
     .execute();
   const zoneslist = result.body.results;
   if (!zoneslist.length) console.log(`No zones to delete`);
-  zoneslist.map(async (zones) => {
-    console.log(`Deleting zones ${zones.key} with ID: ${zones.id}`);
+  for (const zone of zoneslist) {
+    console.log(`Deleting zones ${zone.key} with ID: ${zone.id}`);
     await handle
       .root()
       .zones()
-      .withId({ ID: zones.id })
-      .delete({ queryArgs: { version: zones.version } })
+      .withId({ ID: zone.id })
+      .delete({ queryArgs: { version: zone.version } })
       .execute();
-  });
+  }
 }

@@ -9,22 +9,22 @@ export async function cleanproducts(handle: sdk) {
     .execute();
   const productslist = result.body.results;
   if (!productslist.length) console.log(`No products to delete`);
-  productslist.map(async (products) => {
-    console.log(`unpublishing product ${products.key} with ID: ${products.id}`);
+  for (const product of productslist) {
+    console.log(`unpublishing product ${product.key} with ID: ${product.id}`);
     await handle
       .root()
       .products()
-      .withId({ ID: products.id })
+      .withId({ ID: product.id })
       .post({
         body: {
-          version: products.version,
+          version: product.version,
           actions: [
             { action: "unpublish" },
           ],
         },
       })
       .execute();
-  });
+  }
 
   const uResult = await handle
     .root()
@@ -32,13 +32,13 @@ export async function cleanproducts(handle: sdk) {
     .get()
     .execute();
   const unpublishedProductslist = uResult.body.results;
-  unpublishedProductslist.map(async (products) => {
-    console.log(`Deleting products ${products.key} with ID: ${products.id}`);
+  for (const product of unpublishedProductslist) {
+    console.log(`Deleting products ${product.key} with ID: ${product.id}`);
     await handle
       .root()
       .products()
-      .withId({ ID: products.id })
-      .delete({ queryArgs: { version: products.version } })
+      .withId({ ID: product.id })
+      .delete({ queryArgs: { version: product.version } })
       .execute();
-  });
+  }
 }
